@@ -1,0 +1,33 @@
+<body>
+<form method="post">
+    <input type="text" name="name" placeholder="Name">
+    <input type="email" name="email" placeholder="Email">
+    <input type="submit" value="Submit">
+</form>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+    </tr>
+    {% for item in data %}
+    <tr>
+        <td>{{item[1]}}</td>
+        <td>{{item[2]}}</td>
+    </tr>
+    {% endfor %}
+</body>
+<style type="text/css">
+    table {
+        width: 500px;
+        border-collapse: collapse;
+    }
+
+    td {
+            border: 1px solid black;
+        }
+
+    th {
+        text-align: center;
+        font-weight: bolder;
+    }
+</style>
