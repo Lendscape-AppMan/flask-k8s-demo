@@ -29,6 +29,7 @@ def index():
     c = conn.cursor()
     c.execute("SELECT * FROM users")
     data = c.fetchall()
+    conn.close()
     return render_template("index.html", data=data)
 
 
