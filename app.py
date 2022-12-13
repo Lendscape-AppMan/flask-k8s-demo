@@ -33,5 +33,26 @@ def index():
     return render_template("index.html", data=data)
 
 
+@app.route("/", methods=["POST"])
+def submit():
+    # Get data from form
+    name = request.form["name"]
+    email = request.form["email"]
+
+    # Insert data into table
+    conn = sqlite3.connect("database.db")
+    c = conn.cursor()
+    c.execute("INSERT INTO users (name, email) VALUES (?,?)", (name, email))
+    conn.commit()
+    conn.close()
+
+    return redirect(url_for("success"))
+
+
+@app.route("/success")
+def success():
+    return "Form data successfully submitted."
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
