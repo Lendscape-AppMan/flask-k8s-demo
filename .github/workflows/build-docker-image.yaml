@@ -3,6 +3,11 @@ on:
   push:
     branches:
       - 'main'
+
+env:
+  DOCKER_USER: ${{secrets.DOCKER_USER}}
+  DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -37,5 +42,4 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           repository: flask-k8s
-          tag_with_ref: true
           push: true
