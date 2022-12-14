@@ -41,5 +41,4 @@ jobs:
       - name: Build and push Docker image to Docker Hub
         uses: docker/build-push-action@v3
         with:
-          repository: flask-k8s
           push: true
