@@ -42,3 +42,4 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
+          tags: charliehpd/flask-k8s-demo:latest
