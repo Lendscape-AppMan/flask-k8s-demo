@@ -1,6 +1,7 @@
 import sqlite3
 
 from flask import Flask
+from flask import jsonify
 from flask import redirect
 from flask import render_template
 from flask import request
@@ -52,6 +53,29 @@ def submit():
 @app.route("/success")
 def success():
     return "Form data successfully submitted."
+
+
+@app.route("/user/<int:id>")
+def get_user(id: int) -> str:
+    """
+    Fetches a user's information from the database and returns it as a JSON object.
+    If the user is not found, returns a 404 error message status code.
+
+    Args:
+        id (int): The id of the user to fetch passed in the URL and converted to an integer by the Flask route decorator.
+
+    Returns:
+        str: JSON string object containing the user's information or a 404 error message if user not found.
+    """
+    conn = sqlite3.connect("database.db")
+    c = conn.cursor()
+    c.execute("SELECT * FROM users WHERE id=?", (id,))
+    row = c.fetchone()
+    conn.close()
+    if row:
+        return jsonify({"id": row[0], "name": row[1], "email": row[2]})
+    else:
+        return jsonify({"error": "user not found"}), 404
 
 
 if __name__ == "__main__":
